@@ -12,15 +12,16 @@ public sealed class GeoJson {
     @Serializable
     public sealed class Geometry : GeoJson() {
 
-        @SerialName("bbox")
-        override val boundingBox: BoundingBox? = null
-
         @Serializable @SerialName("Point")
-        public data class Point(@SerialName("coordinates") val position: Position) : Geometry()
+        public data class Point(
+            @SerialName("coordinates") val position: Position,
+            @SerialName("bbox") override val boundingBox: BoundingBox? = null,
+        ) : Geometry()
 
         @Serializable @SerialName("MultiPoint")
         public data class MultiPoint(
             @SerialName("coordinates") val positions: List<Position> = emptyList(),
+            @SerialName("bbox") override val boundingBox: BoundingBox? = null,
         ) : Geometry(), List<Position> by positions
 
         /* other types */
